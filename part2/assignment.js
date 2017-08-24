@@ -4,13 +4,13 @@
 // Return the sum of all of the numbers in the array. For example, given
 // [1, 2, 3, 4], then return 10. If the array is empty, return 0.
 function sum(arr) {
-  // var sum = 0;
-  //
-  // for (var i = 0; i < arr.length; i++) {
-  //   sum += arr[i];
-  // }
-  //
-  // return sum;
+  var sum = 0;
+
+  for (var i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+
+  return sum;
 }
 
 // Define a function named product that takes in one argument.
@@ -19,6 +19,9 @@ function sum(arr) {
 // Return the product of all of the numbers in the array. For example, given
 // [1, 2, 3, 4], then return 24. If the array is empty, return 1.
 function product(arr) {
+  return arr.reduce(function(acc, value){
+    return acc*= value;
+  }, 1);
   // YOUR CODE HERE
 }
 
@@ -29,7 +32,11 @@ function product(arr) {
 // ['hello', 'my', 'name', 'is', 'ken'], then return 'hellomynameisken'. If the
 // array is empty, return ''.
 function concatenate(arr) {
-
+  var newStr = "";
+  for(var i = 0; i < arr.length; i++){
+    newStr+= arr[i];
+  }
+  return newStr;
 }
 
 // Define a function named repeat that takes in two arguments.
@@ -39,7 +46,13 @@ function concatenate(arr) {
 // Return a new string containing times copies of the input str. For example,
 // given 'hi' and 4, then return 'hihihihi'.
 function repeat(str, times) {
-
+  var add = str;
+  for(var i =1; i<times; i++){
+    console.log("iteration:", str);
+    str+= add;
+  }
+  //console.log("outside while loop:", str);
+  return str;
 }
 
 // Define a function named filterPassingGrades that takes in one argument.
@@ -47,7 +60,11 @@ function repeat(str, times) {
 //
 // Return a new array with any grade less than 70 filtered out. For example,
 // given [88, 67, 70, 92, 53], then return [88, 70, 92].
-
+function filterPassingGrades(grades){
+ return grades.filter(function(el){
+   return el >= 70;
+ });
+}
 
 
 
@@ -58,6 +75,14 @@ function repeat(str, times) {
 //
 // Return a new array of numbers where all from elements are replaced with to.
 // For example, given [1, 3, 2, 1, 3], 1, and 4, then return [4, 3, 2, 4, 3].
+function replace(arr, from, to){
+  for(var i =0;i<arr.length; i++){
+    if(arr[i] === from){
+      arr[i] = to;
+    }
+  }
+  return arr;
+}
 
 
 
@@ -72,7 +97,11 @@ function repeat(str, times) {
 //
 // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
 
-
+function flatten(arr){
+  return arr.reduce(function(acc, val){
+    return acc.concat(val);
+  }, []);
+}
 
 
 // Define a function named max that takes in one argument.
@@ -83,7 +112,12 @@ function repeat(str, times) {
 //
 // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/max
 
-
+function max(arr){
+  var sorted = arr.sort(function(a,b){
+    return b - a;
+  });
+  return (sorted[0])? sorted[0] : -Infinity;
+}
 
 
 // Define a function named min that takes in one argument.
@@ -93,7 +127,12 @@ function repeat(str, times) {
 // then return -3. If the array is empty, return Infinity.
 //
 // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/min
-
+function min(arr){
+  var sorted = arr.sort(function(a,b){
+    return a - b;
+  });
+  return (sorted[0])? sorted[0] : Infinity;
+}
 
 
 
@@ -103,7 +142,13 @@ function repeat(str, times) {
 // Return the mean (i.e. average) of all of the numbers in the array. For
 // example, given [1, 2, 6], then return 3. If the array is empty, return null.
 
-
+function mean(arr){
+  var sum = arr.reduce(function(acc, val){
+    return acc+= val;
+  }, 0);
+  var mean = sum / arr.length;
+  return (mean)? mean : null;
+}
 
 
 // Define a function named median that takes in one argument.
@@ -117,8 +162,20 @@ function repeat(str, times) {
 // Tip: The given array may not be sorted.
 //
 // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-
-
+function median(arr){
+  if(arr.length === 0){
+    return null;
+  }
+  var sorted = arr.sort(function(a, b){
+    return a - b;
+  });
+  var medianIndex = Math.floor(sorted.length / 2);
+  console.log(medianIndex)
+  if(sorted.length % 2 === 1){
+    return sorted[medianIndex];
+  }
+  return (sorted[medianIndex] + sorted[medianIndex - 1]) / 2;
+}
 
 
 // Define a function named contains that takes in two arguments.
@@ -127,6 +184,13 @@ function repeat(str, times) {
 //
 // Return true if that string exists in the array, otherwise false.
 
+function contains(arr, str){
+  var found = arr.filter(function(el){
+    return (el === str);
+  });
+  //console.log(found)
+  return (found.length > 0)? true : false;
+}
 
 
 
@@ -143,6 +207,16 @@ function repeat(str, times) {
 //
 // Tip: Use Google to learn more about calculating the distance.
 
+function distance(point1, point2){
+  var point1X = point1.x;
+  var point1Y = point1.y;
+  var point2X= point2.x;
+  var point2Y = point2.y;
+  var xDiff = point2X - point1X;
+  var yDiff = point2Y - point1Y;
+  var distance = Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+  return distance;
+}
 
 
 
@@ -156,7 +230,16 @@ function repeat(str, times) {
 // the latest object to have the key will determine the value. For example,
 // given {c: 3} and {c: 4}, then return {c: 4}.
 
-
+function combine(obj1, obj2){
+  var newObj = {};
+  for(var key in obj1){
+      newObj[key] = obj1[key];
+  }
+  for(var key2 in obj2){
+    newObj[key2] = obj2[key2];
+  }
+ return newObj;
+}
 
 // Define a function called invert that takes in one argument.
 //    obj (object)
@@ -164,7 +247,13 @@ function repeat(str, times) {
 // Return a new object where the keys and values of the argument are inverted.
 // For example, given { a: 1, b: 2 }, then return { '1': 'a', '2': 'b' }.
 
-
+function invert(obj){
+  var newObj = {};
+  for(var key in obj){
+    newObj[obj[key]] = key;
+  }
+  return newObj;
+}
 
 
 // Define a function named values that takes in one argument.
@@ -173,7 +262,13 @@ function repeat(str, times) {
 // Return an array of the values of the object. For example, given
 // { a: 1, b: 2, c: 3 }, then return [1, 2, 3].
 
-
+function values(obj){
+  var keysArr = [];
+  for(var key in obj){
+    keysArr.push(obj[key]);
+  }
+  return keysArr;
+}
 
 
 // Define a function called toPairs that takes in one argument.
@@ -183,7 +278,13 @@ function repeat(str, times) {
 // argument. For example, given { a: 1, b: 2 }, then return
 // [['a', 1], ['b', 2]].
 
-
+function toPairs(obj){
+  var keyArr = [];
+  for(var key in obj){
+    keyArr.push([key, obj[key]])
+  }
+  return keyArr;
+}
 
 
 // Define a function called fromPairs that takes in one argument.
@@ -192,3 +293,11 @@ function repeat(str, times) {
 // Return a new object where each key-value pair is from an element in the
 // argument. For example, given [['a', 1], ['b', 2]], then return
 // { a: 1, b: 2 }.
+
+function fromPairs(arr){
+  var obj ={};
+  for(var i =0;i < arr.length; i++){
+    obj[arr[i][0]] = arr[i][1];
+  }
+  return obj;
+}
